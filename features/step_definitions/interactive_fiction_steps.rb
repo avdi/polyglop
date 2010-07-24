@@ -1,31 +1,11 @@
-WHITESPACE = "\t\n "
-
-Before do
-  @in  = StringIO.new
-  @out = StringIO.new
-end
-
-AfterStep do
-  # @in.string  = ""
-  # @out.string = ""
-end
+WHITESPACE = "\t\r\n "
 
 When /^I start a new game with the file "([^\"]*)"$/ do |filename|
-  @in.string  = ""
-  @out.string = ""
-  full_path = File.expand_path("../../data/#{filename}", File.dirname(__FILE__))
-  @game = Game.new(full_path, :input => @in, :output => @out)
-  @game.start!
-end
+  story_path = File.expand_path("../../data/#{filename}", File.dirname(__FILE__))
+  exec_path = File.expand_path("../../bin/play.rb", File.dirname(__FILE__))
 
-Then /^I should see:$/ do |text|
-  @out.string.tr_s(WHITESPACE, " ").should include(text.tr_s(WHITESPACE, " "))
-end
-
-When /^I enter "([^\"]*)"$/ do |command|
-  @in.string = command + "\n"
-  @out.string = ""
-  @game.execute_one_command!
+  Given %Q(a process from command "#{exec_path} #{story_path}")
+  When %Q(I execute the process)
 end
 
 When /^I pick up the (.*)$/ do |term|
@@ -33,15 +13,15 @@ When /^I pick up the (.*)$/ do |term|
 end
 
 Then /^I should be (.*)$/ do |text|
-  @out.string.should =~ /^(You are|You're).*#{text}/i
+  Then %Q(I should see the following output:), text
 end
 
 Then /^I should see "([^\"]*)"$/ do |text|
-  @out.string.should =~ Regexp.new(text)
+  Then %Q(I should see the following output:), text
 end
 
 Then /^I should not see "([^\"]*)"$/ do |text|
-  @out.string.should_not =~ Regexp.new(text)
+  Then %Q(I should not see the following output:), text
 end
 
 Then /^I should have the (.*)$/ do |object|

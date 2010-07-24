@@ -4,10 +4,11 @@ Feature: Lead the user on an epic adventure
   I want to play an interactive fiction game
 
   Background:
+    Given process activity is logged to "greenletters.log"
     When I start a new game with the file "petite_cave.if"
 
   Scenario: Starting a game
-    Then I should see:
+    Then I should see the following output:
     """
     You are standing at the end of a road before a small brick building.
     Around you is a forest.  A small stream flows out of the building and
@@ -16,39 +17,39 @@ Feature: Lead the user on an epic adventure
 
   Scenario: Moving around
     When I enter "east"
-    Then I should see:
+    Then I should see the following output:
     """
     You are inside a building, a well house for a large spring.
     """
     When I enter "west"
-    Then I should see:
+    Then I should see the following output:
     """
     You're at end of road again.
     """
     When I enter "south"
-    Then I should see:
+    Then I should see the following output:
     """
     You are in a valley in the forest beside a stream tumbling along a
     rocky bed.
     """
     When I enter "south"
-    Then I should see:
+    Then I should see the following output:
     """
     At your feet all the water of the stream splashes into a 2-inch slit
     in the rock.  Downstream the streambed is bare rock.
     """
     When I enter "south"
-    Then I should see:
+    Then I should see the following output:
     """
     You are in a 20-foot depression floored with bare dirt.  Set into the
     dirt is a strong steel grate mounted in concrete.  A dry streambed
     leads into the depression.
     """
-  
+
   Scenario: Blocked movement
     When I enter "east"
      And I enter "east"
-    Then I should see:
+    Then I should see the following output:
     """
     There is no way to go in that direction
     """
@@ -57,13 +58,13 @@ Feature: Lead the user on an epic adventure
   Scenario: Looking around
     When I enter "east"
      And I enter "look"
-    Then I should see:
+    Then I should see the following output:
     """
     You are inside a building, a well house for a large spring.
     """
     When I enter "west"
      And I enter "look"
-    Then I should see:
+    Then I should see the following output:
     """
     You are standing at the end of a road before a small brick building.
     Around you is a forest.  A small stream flows out of the building and

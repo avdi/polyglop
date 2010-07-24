@@ -1,4 +1,7 @@
-require 'rubygems'
+require "rubygems"
+require "bundler"
+Bundler.setup
+
 require 'cucumber'
 require 'cucumber/rake/task'
 
@@ -22,4 +25,4 @@ task :extra_credit => ['cucumber:extra_credit']
 
 # Make cucumber.el happy
 task :cucumber => ['cucumber:extra_credit']
-    
+

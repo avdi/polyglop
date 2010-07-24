@@ -83,7 +83,7 @@ Room @grate_chamber:
 
 Action !unlock:
   Terms: unlock grate, open grate
-  Code: 
+  Code:
     {{{
     if !player_in?('@depression')
       ["There is no grate here", {}]
@@ -93,7 +93,7 @@ Action !unlock:
       ["The grate is now unlocked", {:grate_unlocked => true}]
     end
     }}}
-      
+
 Synonyms:
   north: n
   south: s
@@ -103,3 +103,4 @@ Synonyms:
   take: get, pick up
   drop: put down
   inventory: i
+
