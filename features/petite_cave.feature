@@ -81,13 +81,17 @@ Feature: Lead the user on an epic adventure
 
   Scenario: Show objects
     When I enter "east"
-    Then I should see "There are some keys on the ground here."
-     And I should see "There is a shiny brass lamp nearby."
-     And I should see "There is food here."
+    Then I should see all the following outputs:
+    | text                                   |
+    | There are some keys on the ground here |
+    | There is a shiny brass lamp nearby     |
+    | There is food here                     |
     When I enter "look"
-    Then I should see "There are some keys on the ground here."
-     And I should see "There is a shiny brass lamp nearby."
-     And I should see "There is food here."
+    Then I should see all the following outputs:
+    | text                                   |
+    | There are some keys on the ground here |
+    | There is a shiny brass lamp nearby     |
+    | There is food here                     |
 
   Scenario: Starting inventory
     When I enter "inventory"
@@ -110,9 +114,11 @@ Feature: Lead the user on an epic adventure
      And I enter "get keys"
      And I enter "west"
      And I enter "drop keys"
+     And I discard earlier outputs from the process
      And I enter "look"
     Then I should see "There are some keys on the ground here."
-    When I enter "inventory"
+    When I discard earlier outputs from the process
+     And I enter "inventory"
     Then I should not see "keys"
 
   Scenario Outline:

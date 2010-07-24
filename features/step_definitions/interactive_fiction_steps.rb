@@ -16,6 +16,10 @@ Then /^I should be (.*)$/ do |text|
   Then %Q(I should see the following output:), text
 end
 
+Then /^I should see:$/ do |text|
+  Then %Q(I should see the following output:), text
+end
+
 Then /^I should see "([^\"]*)"$/ do |text|
   Then %Q(I should see the following output:), text
 end
