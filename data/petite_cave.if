@@ -66,11 +66,12 @@ Room @depression:
     north to @slit
     enter to @grate_chamber guarded by:
       {{{
-      if blackboard[:grate_unlocked]
-        [true, ""]
-      else
-        [false, "You can't go through a locked steel grate!"]
-      end
+        if(blackboard.grate_unlocked) {
+          true;
+        } else {
+          say("You can't go through a locked steel grate!");
+          false;
+        }
       }}}
 
 Room @grate_chamber:
@@ -85,13 +86,14 @@ Action !unlock:
   Terms: unlock grate, open grate
   Code:
     {{{
-    if !player_in?('@depression')
-      ["There is no grate here", {}]
-    elsif !player_has?('$keys')
-      ["You have no keys!", {}]
-    else
-      ["The grate is now unlocked", {:grate_unlocked => true}]
-    end
+      if(!playerIsIn('@depression')) {
+         say("There is no grate here");
+      } else if(!playerHasItem('$keys')) {
+        say("You have no keys!");
+      } else {
+        say("The grate is now unlocked");
+        blackboard.grate_unlocked = true;
+      }
     }}}
 
 Synonyms:

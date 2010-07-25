@@ -1,10 +1,15 @@
 #!/usr/bin/env ruby
+require "rubygems"
+require "bundler"
+Bundler.setup
+
 require 'pathname'
 require 'strscan'
 require 'English'
 require 'logger'
 require 'forwardable'
 require 'set'
+require 'johnson'
 
 class Game
   extend Forwardable
@@ -71,11 +76,7 @@ class Game
     when *story.exits
       move_player!(command) and say_location
     when *actions.keys
-      message, blackboard = safe_eval(actions[command].code)
-      if message then say message end
-      if blackboard && blackboard.is_a?(Hash)
-        self.blackboard.merge!(blackboard)
-      end
+      safe_eval(actions[command].code)
     else
       say "I don't know that word."
     end
@@ -106,10 +107,9 @@ class Game
       return false
     end
     if guard = player_location.exit_guards[direction]
-      allowed, message = safe_eval(guard)
-      Game.log "Guard result: #{allowed.inspect}, #{message.inspect}"
+      allowed = safe_eval(guard)
+      Game.log "Guard result: #{allowed.inspect}"
       if !allowed
-        say message
         return false
       end
     end
@@ -194,10 +194,15 @@ class Game
 
   def safe_eval(code)
     Game.log "Evaluating #{code}"
-    Thread.start do
-      $SAFE = 4
-      instance_eval(code)
-    end.join.value
+    # Thread.start do
+    #   $SAFE = 4
+    #   instance_eval(code)
+    # end.join.value
+    Johnson.evaluate(code,
+      :blackboard    => @blackboard,
+      :playerIsIn    => method(:player_in?),
+      :playerHasItem => method(:player_has?),
+      :say           => method(:say))
   end
 end
 
