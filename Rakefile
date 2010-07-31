@@ -4,6 +4,14 @@ Bundler.setup
 
 require 'cucumber'
 require 'cucumber/rake/task'
+require 'pathname'
+
+ROOT = Pathname(File.dirname(__FILE__))
+
+desc "List implementations"
+task :implementations do |t|
+  puts *(ROOT + 'bin').entries.grep(/\w+/).map{|f| f.basename }
+end
 
 namespace :cucumber do
   Cucumber::Rake::Task.new(:default) do |t|

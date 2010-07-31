@@ -1,8 +1,9 @@
 WHITESPACE = "\t\r\n "
 
 When /^I start a new game with the file "([^\"]*)"$/ do |filename|
+  implementation = ENV['IMPL']
   story_path = File.expand_path("../../data/#{filename}", File.dirname(__FILE__))
-  exec_path = File.expand_path("../../bin/play.rb", File.dirname(__FILE__))
+  exec_path = File.expand_path("../../bin/#{implementation}", File.dirname(__FILE__))
 
   Given %Q(a process from command "#{exec_path} #{story_path}")
   When %Q(I execute the process)

@@ -1,0 +1,5 @@
+Autotest.add_hook :initialize do |at|
+  %w{.svn .hg .git vendor rerun.txt tmp greenletters.log}.each {|exception|
+    at.add_exception(exception)
+  }
+end
