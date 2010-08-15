@@ -1,2 +1,29 @@
 * POLYGLOP: POLYglot Grand Language Omniscience Project
+*** Languages
+***** DONE Ruby
+      CLOSED: [2010-08-01 Sun 09:35]
+***** TODO Haskell
+***** TODO Clojure
+***** TODO Scala
+***** TODO Erlang
+***** TODO JavaScript 1.8
+***** TODO Python 3
+***** TODO Smalltalk
+***** TODO Go
+***** TODO C# 4
+***** TODO C++0x
+***** TODO Java 7
+***** TODO Perl 6
+***** TODO Io
+***** TODO Lua
+***** TODO TCL
+***** TODO XOTCL
+***** TODO Common Lisp
+***** TODO Eiffel
+***** TODO Self
+***** TODO C + Glib
+***** TODO OCaml
+***** TODO Ooc
+***** TODO Vala/Genie
+***** TODO D
 

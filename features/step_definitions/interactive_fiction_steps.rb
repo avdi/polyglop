@@ -1,7 +1,13 @@
-WHITESPACE = "\t\r\n "
+WHITESPACE   = "\t\r\n "
+DEFAULT_IMPL = "ruby-stdlib"
 
 When /^I start a new game with the file "([^\"]*)"$/ do |filename|
-  implementation = ENV['IMPL']
+  implementation = if ENV['IMPL']
+                     ENV['IMPL']
+                   else
+                     warn "IMPL not set; defaulting to #{DEFAULT_IMPL}"
+                     DEFAULT_IMPL
+                   end
   story_path = File.expand_path("../../data/#{filename}", File.dirname(__FILE__))
   exec_path = File.expand_path("../../bin/#{implementation}", File.dirname(__FILE__))
 
